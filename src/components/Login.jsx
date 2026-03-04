@@ -1,24 +1,27 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { addUser } from './utils/userSlice';
-import { useNavigate } from 'react-router-dom';
-import { BASE_URL } from './utils/constant';
+import { addUser } from '../utils/userSlice';
+import { Link, useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../utils/constant';
 
 const Login = () => {
-    const [emailId,setEmailId] = useState("dhoni@gmail.com");
-    const [password,setPassword] = useState("Dhoni@123");
+    const [emailId,setEmailId] = useState("");
+    const [password,setPassword] = useState("");
+    const [error,setError]= useState()
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const handleLogin = async ()=>{
         try{
-            const res = await axios.post(BASE_URL+"/login",{emailId,password,},{withCredentials:true})
+            const res = await axios.post(BASE_URL+"/login",{emailId,password,},{withCredentials:true});
             dispatch(addUser(res.data))
             return navigate("/")
         }
         catch(err)
         {
+            setError(err?.response?.data)
             console.error(err)
         }
     }
@@ -39,9 +42,11 @@ const Login = () => {
                 <input type="password" required placeholder="Password"  value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
             </label>
             
+            <p className='text-red-700'>{error}</p>
             <div className="card-actions justify-end">
-            <button className="btn" onClick={handleLogin}>LOG IN</button>
+            <button className="btn mx-auto" onClick={handleLogin}>LOG IN</button>
             </div>
+            <Link to="/signUp" className='mx-auto my-1.5 hover:cursor-pointer'>New User? Sign Up here</Link>
         </div>
       </div>
     </div>

@@ -2,11 +2,11 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className="footer sm:footer-horizontal bg-base-200 text-base-content p-10 fixed bottom-0 ">
+    <footer className="footer sm:footer-horizontal bg-base-200 text-base-content  fixed bottom-0 ">
   <aside>
     <svg
-      width="50"
-      height="50"
+      width="20"
+      height="20"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       fillRule="evenodd"
